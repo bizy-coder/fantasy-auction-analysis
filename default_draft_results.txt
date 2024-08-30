@@ -1,0 +1,160 @@
+Ja'Marr Chase, 25.0, Antelopes of Wisdom
+Bijan Robinson, 52.0, Mr. Bad Example
+Tyreek Hill, 60.0, The Dregs
+Derrick Henry, 52.0, Passwordistaco
+Travis Etienne, 32.0, The Dregs
+Breece Hall, 58.0, Thunder and Lightning
+Garrett Wilson, 40.0, Mr. Bad Example
+Amon-Ra St. Brown, 55.0, DJ's Jive Turkeys
+Davante Adams, 24.0, Mr. Bad Example
+Christian McCaffrey, 65.0, Touchdown Tyrants
+CeeDee Lamb, 65.0, Mustang Sally
+Justin Jefferson, 45.0, Thunder and Lightning
+A.J. Brown, 47.0, Passwordistaco
+Chris Olave, 25.0, Thunder and Lightning
+Isiah Pacheco, 50.0, Mustang Sally
+Jonathan Taylor, 46.0, Antelopes of Wisdom
+Kyren Williams, 48.0, Slippery People
+Saquon Barkley, 52.0, Touchdown Tyrants
+Puka Nacua, 35.0, Touchdown Tyrants
+Marvin Harrison , 25.0, Antelopes of Wisdom
+Mike Evans, 26.0, Slippery People
+Stefon Diggs, 15.0, Passwordistaco
+De'Von Achane, 37.0, The Dregs
+Jahmyr Gibbs, 45.0, Mr. Bad Example
+Caleb Williams, 7.0, Nilla Wafers
+Kenneth Walker, 17.0, Passwordistaco
+Deebo Samuel, 22.0, Passwordistaco
+D.J. Moore, 17.0, The Dregs
+Travis Kelce, 17.0, Slippery People
+Sam LaPorta, 23.0, Antelopes of Wisdom
+DeVonta Smith, 8.0, Passwordistaco
+DK Metcalf, 19.0, Passwordistaco
+Alvin Kamara, 16.0, Antelopes of Wisdom
+Rhamondre Stevenson, 9.0, Thunder and Lightning
+James Cook, 34.0, DJ's Jive Turkeys
+Joe Mixon, 30.0, Slippery People
+Josh Allen, 30.0, DJ's Jive Turkeys
+Brandon Aiyuk, 13.0, Mustang Sally
+Amari Cooper, 8.0, Nilla Wafers
+Jalen Hurts, 34.0, Antelopes of Wisdom
+Lamar Jackson, 29.0, Slippery People
+Patrick Mahomes, 25.0, Nilla Wafers
+Rachaad White, 26.0, Mustang Sally
+Nico Collins, 20.0, The Dregs
+Raheem Mostert, 10.0, The Dregs
+Cooper Kupp, 21.0, Nilla Wafers
+David Montgomery, 15.0, Nilla Wafers
+Evan Engram, 8.0, Nilla Wafers
+James Conner, 13.0, Nilla Wafers
+George Pickens, 11.0, Thunder and Lightning
+Dalton Kincaid, 19.0, Thunder and Lightning
+Kyler Murray, 14.0, Thunder and Lightning
+Devin Singletary, 7.0, Mr. Bad Example
+Cole Kmet, 5.0, Mr. Bad Example
+Rome Odunze, 5.0, Nilla Wafers
+Mark Andrews, 20.0, Touchdown Tyrants
+C.J. Stroud, 9.0, Passwordistaco
+Tony Pollard, 4.0, Mustang Sally
+Zay Flowers, 7.0, Antelopes of Wisdom
+Michael Pittman, 15.0, Mr. Bad Example
+Trevor Lawrence, 4.0, Mr. Bad Example
+Cairo Santos, 1.0, Mr. Bad Example
+Chicago Bears, 1.0, Mr. Bad Example
+Aaron Rodgers, 2.0, Passwordistaco
+Josh Jacobs, 14.0, DJ's Jive Turkeys
+Javonte Williams, 3.0, Nilla Wafers
+Jaylen Waddle, 13.0, Nilla Wafers
+George Kittle, 6.0, Nilla Wafers
+Keenan Allen, 14.0, Slippery People
+Justin Tucker, 3.0, Slippery People
+Baltimore Ravens, 5.0, Nilla Wafers
+Jordan Love, 15.0, Nilla Wafers
+Jake Moody, 1.0, Nilla Wafers
+Drake London, 52.0, DJ's Jive Turkeys
+Anthony Richardson, 11.0, The Dregs
+Kyle Pitts, 7.0, Mustang Sally
+Pat Freiermuth, 5.0, Mustang Sally
+Jayden Reed, 3.0, Mustang Sally
+Jared Goff, 2.0, Touchdown Tyrants
+Dak Prescott, 8.0, Slippery People
+Cleveland Browns, 3.0, Slippery People
+Gus Edwards, 3.0, Slippery People
+David Njoku, 5.0, Slippery People
+Tank Dell, 8.0, Touchdown Tyrants
+Joe Burrow, 7.0, Antelopes of Wisdom
+Nick Chubb, 3.0, Thunder and Lightning
+Najee Harris, 6.0, Nilla Wafers
+Chris Godwin, 1.0, Nilla Wafers
+D'Andre Swift, 4.0, DJ's Jive Turkeys
+Dalton Schultz, 4.0, The Dregs
+San Francisco 49ers, 3.0, Slippery People
+Terry McLaurin, 3.0, Slippery People
+Xavier Worthy, 3.0, Slippery People
+Brian Robinson, 3.0, Slippery People
+Malik Nabers, 3.0, Touchdown Tyrants
+Zamir White, 10.0, Antelopes of Wisdom
+Jonathon Brooks, 2.0, Touchdown Tyrants
+Jaylen Warren, 3.0, Passwordistaco
+Brock Purdy, 5.0, Mustang Sally
+Jameson Williams, 3.0, Mustang Sally
+Dallas Cowboys, 4.0, Mustang Sally
+Philadelphia Eagles, 3.0, Mustang Sally
+Bo Nix, 1.0, Mustang Sally
+Rashee Rice, 3.0, Mustang Sally
+Tyler Bass, 1.0, Mustang Sally
+Jake Ferguson, 1.0, Passwordistaco
+Kansas City Chiefs, 2.0, The Dregs
+Jayden Daniels, 3.0, Thunder and Lightning
+New York Jets, 2.0, DJ's Jive Turkeys
+Trey McBride, 2.0, Touchdown Tyrants
+Calvin Ridley, 2.0, Thunder and Lightning
+Pittsburgh Steelers, 1.0, Thunder and Lightning
+Austin Ekeler, 1.0, Thunder and Lightning
+Keon Coleman, 1.0, Thunder and Lightning
+T.J. Hockenson, 1.0, Thunder and Lightning
+Miami Dolphins, 1.0, Thunder and Lightning
+Brandon Aubrey, 1.0, Thunder and Lightning
+Tee Higgins, 1.0, Touchdown Tyrants
+Younghoe Koo, 1.0, Touchdown Tyrants
+Buffalo Bills, 1.0, Touchdown Tyrants
+Christian Kirk, 2.0, Slippery People
+Harrison Butker, 1.0, Passwordistaco
+Zack Moss, 1.0, Passwordistaco
+Dallas Goedert, 1.0, Passwordistaco
+Los Angeles Chargers, 1.0, Passwordistaco
+New Orleans Saints, 1.0, Passwordistaco
+Jaleel McLaughlin, 1.0, Mustang Sally
+Aaron Jones, 2.0, Touchdown Tyrants
+Tua Tagovailoa, 1.0, Touchdown Tyrants
+Houston Texans, 1.0, Touchdown Tyrants
+DeAndre Hopkins, 1.0, Touchdown Tyrants
+Jerome Ford, 1.0, Mr. Bad Example
+Diontae Johnson, 1.0, The Dregs
+Brock Bowers, 1.0, DJ's Jive Turkeys
+Tyjae Spears, 1.0, Antelopes of Wisdom
+Luke Musgrave, 1.0, Mr. Bad Example
+Rico Dowdle, 1.0, The Dregs
+Marquise Brown, 1.0, DJ's Jive Turkeys
+Jaxon Smith-Njigba, 1.0, Antelopes of Wisdom
+New England Patriots, 1.0, Mr. Bad Example
+Jake Elliott, 1.0, The Dregs
+MarShawn Lloyd, 1.0, DJ's Jive Turkeys
+Seattle Seahawks, 1.0, Antelopes of Wisdom
+Christian Watson, 1.0, Mr. Bad Example
+Matthew Stafford, 1.0, The Dregs
+Justin Herbert, 1.0, DJ's Jive Turkeys
+Cincinnati Bengals, 1.0, Antelopes of Wisdom
+Geno Smith, 1.0, Mr. Bad Example
+Hunter Henry, 1.0, The Dregs
+Noah Fant, 1.0, DJ's Jive Turkeys
+Romeo Doubs, 1.0, Antelopes of Wisdom
+Brandin Cooks, 1.0, Mr. Bad Example
+Josh Palmer, 1.0, The Dregs
+Demario Douglas, 1.0, DJ's Jive Turkeys
+Mike Gesicki, 1.0, Antelopes of Wisdom
+Detroit Lions, 1.0, The Dregs
+Evan McPherson, 1.0, DJ's Jive Turkeys
+Ka'imi Fairbairn, 1.0, Antelopes of Wisdom
+Green Bay Packers, 1.0, DJ's Jive Turkeys
+Brian Thomas , 1.0, DJ's Jive Turkeys
