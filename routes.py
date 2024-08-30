@@ -10,5 +10,5 @@ def setup_routes():
     app.get("/update_plot")(update_plot)
     app.get("/update_outliers")(update_outliers)
     app.get("/update_recommendations")(update_recommendations)
-    app.post("/save_league_info")(save_league_info)
+    app.post("/update_league_info")(update_league_info)
     app.post("/load_example_auction")(load_example_auction)

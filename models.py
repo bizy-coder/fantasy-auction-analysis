@@ -5,160 +5,142 @@ import numpy as np
 # Updated global variables
 from config import POSITIONS, NUM_STARTERS, FLEX_POSITIONS, PLAYERS, sorted_teams_and_players
 
-
 def load_default_data():
-	with open('default_draft_results.txt', 'r') as f:
-		auction_input = f.read()
-	with open('default_player_info.txt', 'r') as f:
-		player_info_input = f.read()
-	return auction_input, player_info_input
-# Assume player_search function exists and returns projected points for players
-def player_search(player):
-	return PLAYERS.get(player, {}).get('projected_fpts', 0)
+    with open('default_draft_results.txt', 'r') as f:
+        auction_input = f.read()
+    with open('default_player_info.txt', 'r') as f:
+        player_info_input = f.read()
+    return auction_input, player_info_input
 
-# Function to organize and sort teams and players
+def player_search(player):
+    return PLAYERS.get(player, {}).get('projected_fpts', 0)
+
 def get_sorted_teams_and_players(players):
-	teams = defaultdict(lambda: defaultdict(list))
-	failed = []
-	succeeded = []
-	for player, data in players.items():
-		try:
-			if 'fantasy_team' not in data:
-				continue
-			team = data['fantasy_team']
-			position = data['position']
-			if position in POSITIONS:
-				projected_points = player_search(player)
-				teams[team][position].append((player, projected_points))
-			succeeded.append(player)
-		except:
-			failed.append(player)
-	
-	if succeeded:
-		print(*failed,sep="\n")
-	else:
-		return teams
-	
-	# Sort each position list by projected points (descending order)
-	for team in teams:
-		for position in POSITIONS:  # Use set to avoid duplicates
-			teams[team][position].sort(key=lambda x: x[1], reverse=True)
-	# Assign FLEX players
-	for team in teams:
-		flex_candidates = []
-		for pos in FLEX_POSITIONS:
-			flex_candidates.extend(teams[team][pos][NUM_STARTERS[pos]:])
-		flex_candidates.sort(key=lambda x: x[1], reverse=True)
-		teams[team]['FLEX'] = flex_candidates
-		# print(f"{FLEX_POSITIONS=}", flex_candidates)
-	
-	return teams
+    teams = defaultdict(lambda: defaultdict(list))
+    failed = []
+    succeeded = []
+    for player, data in players.items():
+        try:
+            if 'fantasy_team' not in data:
+                continue
+            team = data['fantasy_team']
+            position = data['position']
+            if position in POSITIONS:
+                projected_points = player_search(player)
+                teams[team][position].append((player, projected_points))
+            succeeded.append(player)
+        except:
+            failed.append(player)
+    
+    if succeeded:
+        print(*failed,sep="\n")
+    else:
+        return teams
+    
+    # Sort each position list by projected points (descending order)
+    for team in teams:
+        for position in POSITIONS:
+            teams[team][position].sort(key=lambda x: x[1], reverse=True)
 
-def player_search(player):
-	return PLAYERS.get(player, {}).get('projected_fpts', 0)
+    # Assign FLEX players if FLEX is in POSITIONS
+    if 'FLEX' in POSITIONS:
+        for team in teams:
+            flex_candidates = []
+            for pos in FLEX_POSITIONS:
+                flex_candidates.extend(teams[team][pos][NUM_STARTERS[pos]:])
+            flex_candidates.sort(key=lambda x: x[1], reverse=True)
+            teams[team]['FLEX'] = flex_candidates
+    
+    return teams
 
 def get_team_points(team, printing=False):
-	positions = sorted_teams_and_players[team]
-	starters = {}
-	bench = {}
-	for pos in POSITIONS:
-		player_list = positions[pos]
-		num_starters = NUM_STARTERS[pos]
-		starters[pos] = sum(x[1] for x in player_list[:num_starters])
-		bench[pos] = [x[1] for x in player_list[num_starters:]]
-	
-	# Add non-starting to FLEX bench
-	bench['FLEX'] = []
-	for pos in FLEX_POSITIONS:
-		bench['FLEX'].extend(bench[pos])
-	bench['FLEX'].sort(reverse=True)
-	
-	return starters, bench
+    positions = sorted_teams_and_players[team]
+    starters = {}
+    bench = {}
+    for pos in POSITIONS:
+        player_list = positions[pos]
+        num_starters = NUM_STARTERS[pos]
+        starters[pos] = sum(x[1] for x in player_list[:num_starters])
+        bench[pos] = [x[1] for x in player_list[num_starters:]]
+    
+    # Add non-starting to FLEX bench if FLEX is in POSITIONS
+    if 'FLEX' in POSITIONS:
+        bench['FLEX'] = []
+        for pos in FLEX_POSITIONS:
+            bench['FLEX'].extend(bench[pos])
+        bench['FLEX'].sort(reverse=True)
+    
+    return starters, bench
 
 def prepare_data(players, sorted_teams_and_players, points_type='absolute'):
-	df = []
-	for team, team_data in sorted_teams_and_players.items():
-		for position in POSITIONS:
-			# if position == "FLEX": continue
-			players_list = team_data.get(position, [])
-			for i, (player, player_data) in enumerate(players_list):
-				is_starter = i < NUM_STARTERS[position]
-				df.append({
-					'Name': player,
-					'Price': players[player]['price'],
-					'Team': team,
-					'Position': position,
-					'Projected_Points': player_data,
-					'Starter': 'Starter' if is_starter else 'Bench'
-				})
-				
-				# # Add FLEX players to their original positions as well
-				# if position == 'FLEX':
-				# 	original_position = players[player]['position']
-				# 	df.append({
-				# 		'Name': player,
-				# 		'Price': players[player]['price'],
-				# 		'Team': team,
-				# 		'Position': original_position,
-				# 		'Projected_Points': player_data,
-				# 		'Starter': 'Bench'  # FLEX players are benched in their original position
-				# 	})
-	
-	df = pd.DataFrame(df)
-	
-	if points_type != 'absolute':
-		for position in POSITIONS:  # Use set to avoid duplicates
-			if points_type == 'relative_worst_starter':
-				baseline = df[(df['Position'] == position) & (df['Starter'] == 'Starter')]['Projected_Points'].min()
-			elif points_type == 'relative_theoretical_worst_starter':
-				num_starters = len(df['Team'].unique()) * NUM_STARTERS[position]
-				baseline = df[df['Position'] == position]['Projected_Points'].nlargest(num_starters).min()
-			
-			df.loc[df['Position'] == position, 'Projected_Points'] -= baseline
-	
-	return df
+    df = []
+    for team, team_data in sorted_teams_and_players.items():
+        for position in POSITIONS:
+            players_list = team_data.get(position, [])
+            for i, (player, player_data) in enumerate(players_list):
+                is_starter = i < NUM_STARTERS[position]
+                df.append({
+                    'Name': player,
+                    'Price': players[player]['price'],
+                    'Team': team,
+                    'Position': position,
+                    'Projected_Points': player_data,
+                    'Starter': 'Starter' if is_starter else 'Bench'
+                })
+    
+    df = pd.DataFrame(df)
+    
+    if points_type != 'absolute':
+        for position in POSITIONS:
+            if points_type == 'relative_worst_starter':
+                baseline = df[(df['Position'] == position) & (df['Starter'] == 'Starter')]['Projected_Points'].min()
+            elif points_type == 'relative_theoretical_worst_starter':
+                num_starters = len(df['Team'].unique()) * NUM_STARTERS[position]
+                baseline = df[df['Position'] == position]['Projected_Points'].nlargest(num_starters).min()
+            
+            df.loc[df['Position'] == position, 'Projected_Points'] -= baseline
+    
+    return df
 
 def calculate_relative_points(df, relative_to):
-	for position in POSITIONS:  # Use set to avoid duplicates
-		pos_data = df[df['Position'] == position]
-		if relative_to == 'worst_starter':
-			baseline = pos_data[pos_data['Starter'] == 'Starter']['Projected_Points'].min()
-		elif relative_to == 'theoretical_worst_starter':
-			num_starters = len(df['Team'].unique()) * NUM_STARTERS[position]
-			baseline = pos_data['Projected_Points'].nlargest(num_starters).min()
-		else:
-			baseline = 0
-		df.loc[df['Position'] == position, 'Relative_Points'] = df.loc[df['Position'] == position, 'Projected_Points'] - baseline
-	return df
-
+    for position in POSITIONS:
+        pos_data = df[df['Position'] == position]
+        if relative_to == 'worst_starter':
+            baseline = pos_data[pos_data['Starter'] == 'Starter']['Projected_Points'].min()
+        elif relative_to == 'theoretical_worst_starter':
+            num_starters = len(df['Team'].unique()) * NUM_STARTERS[position]
+            baseline = pos_data['Projected_Points'].nlargest(num_starters).min()
+        else:
+            baseline = 0
+        df.loc[df['Position'] == position, 'Relative_Points'] = df.loc[df['Position'] == position, 'Projected_Points'] - baseline
+    return df
 
 def calculate_outliers(df, fit_type):
-	# Calculate predicted price based on the fit type
-	x = df['Projected_Points']
-	y = df['Price']
-	
-	if fit_type == 'linear':
-		coef = np.polyfit(x, y, 1)
-		df['Predicted_Price'] = np.polyval(coef, x)
-	elif fit_type == 'polynomial':
-		coef = np.polyfit(x, y, 2)
-		df['Predicted_Price'] = np.polyval(coef, x)
-	elif fit_type == 'logarithmic':
-		coef = np.polyfit(np.log(x), y, 1)
-		df['Predicted_Price'] = np.polyval(coef, np.log(x))
-	elif fit_type == 'exponential':
-		coef = np.polyfit(x, np.log(y), 1)
-		df['Predicted_Price'] = np.exp(np.polyval(coef, x))
-	
-	# Calculate price difference
-	df['Price_Difference'] = df['Price'] - df['Predicted_Price']
-	
-	
-	return df[['Name', 'Team', 'Position', 'Price', 'Predicted_Price', 'Price_Difference', 'Projected_Points']]
+    # Calculate predicted price based on the fit type
+    x = df['Projected_Points']
+    y = df['Price']
+    
+    if fit_type == 'linear':
+        coef = np.polyfit(x, y, 1)
+        df['Predicted_Price'] = np.polyval(coef, x)
+    elif fit_type == 'polynomial':
+        coef = np.polyfit(x, y, 2)
+        df['Predicted_Price'] = np.polyval(coef, x)
+    elif fit_type == 'logarithmic':
+        coef = np.polyfit(np.log(x), y, 1)
+        df['Predicted_Price'] = np.polyval(coef, np.log(x))
+    elif fit_type == 'exponential':
+        coef = np.polyfit(x, np.log(y), 1)
+        df['Predicted_Price'] = np.exp(np.polyval(coef, x))
+    
+    # Calculate price difference
+    df['Price_Difference'] = df['Price'] - df['Predicted_Price']
+    
+    return df[['Name', 'Team', 'Position', 'Price', 'Predicted_Price', 'Price_Difference', 'Projected_Points']]
 
 def get_starter_quality_threshold(df, position):
-	starters = df[(df['Position'] == position) & (df['Starter'] == 'Starter')]
-	return starters['Projected_Points'].min()
+    starters = df[(df['Position'] == position) & (df['Starter'] == 'Starter')]
+    return starters['Projected_Points'].min()
 
 from itertools import combinations
 from collections import defaultdict
@@ -176,14 +158,30 @@ def recommend_trades(teams, players, included_player=None, included_teams=None, 
             pos = players[player]['position']
             fpts = player_search(player) - 20
             baselines[pos] = max(baselines[pos], fpts)
-        print(baselines)
-        baselines['FLEX'] = max([baselines[pos] for pos in FLEX_POSITIONS])
+        
+        if 'FLEX' in POSITIONS:
+            baselines['FLEX'] = max([baselines[pos] for pos in FLEX_POSITIONS])
         
         return baselines
 
     waiver_baselines = get_waiver_baselines(teams, players)
 
     def evaluate_trade(team1, team2, players1, players2):
+        def sort_team(team):
+            for pos in POSITIONS:
+                team[pos].sort(key=lambda x: x[1], reverse=True)
+            
+            # Reconfigure FLEX if it's in POSITIONS
+            if 'FLEX' in POSITIONS:
+                team["FLEX"] = []
+                for pos in FLEX_POSITIONS:
+                    team["FLEX"].extend(team[pos][NUM_STARTERS[pos]:])
+                team["FLEX"].sort(key=lambda x: x[1], reverse=True)
+
+        # Sort original teams
+        sort_team(teams[team1])
+        sort_team(teams[team2])
+
         original_score1 = calculate_team_score(teams[team1])
         original_score2 = calculate_team_score(teams[team2])
 
@@ -203,21 +201,9 @@ def recommend_trades(teams, players, included_player=None, included_teams=None, 
         for player, _ in players2:
             transfer_player(player, new_team2, new_team1)
 
-        for pos in POSITIONS:
-            for team in [new_team1, new_team2]:
-                team[pos].sort(key=lambda x: x[1], reverse=True)
-
-        # Reconfigure FLEX for both teams
-        def reconfigure_flex(team):
-            # Determine FLEX starters
-            team["FLEX"] = []
-            for pos in FLEX_POSITIONS:
-                team["FLEX"].extend(team[pos][NUM_STARTERS[pos]:])
-            
-            team["FLEX"].sort(key=lambda x: x[1], reverse=True)
-
-        reconfigure_flex(new_team1)
-        reconfigure_flex(new_team2)
+        # Sort new teams
+        sort_team(new_team1)
+        sort_team(new_team2)
 
         new_score1 = calculate_team_score(new_team1)
         new_score2 = calculate_team_score(new_team2)

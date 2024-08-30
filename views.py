@@ -12,10 +12,10 @@ sidebar_items = ('League Info', 'Draft Results', 'Player Info', 'Team Analysis',
 
 @app.get('/')
 def home():
-	auction_input, player_info_input = load_default_data()
+	# auction_input, player_info_input = load_default_data()
 	
-	process_draft_results(auction_input)
-	process_player_info(player_info_input)
+	# process_draft_results(auction_input)
+	# process_player_info(player_info_input)
 	# print(sorted_teams_and_players)
 	return Div(
 		Div(
@@ -351,7 +351,7 @@ def update_outliers(
 	outliers_table = Table(
 		Thead(
 			Tr(
-				*(Th(col) for col in ['Name', 'Team', 'Position', f'Projected {'Relative '*(points_type!='absolute')}FPTS', 'Price', 'Predicted Price', 'Price Difference'])
+				*(Th(col) for col in ['Name', 'Team', 'Position', f"Projected {'Relative '*(points_type!='absolute')}FPTS", 'Price', 'Predicted Price', 'Price Difference'])
 			)
 		),
 		Tbody(
@@ -415,7 +415,8 @@ def update_league_info(
 			new_flex_positions.append(pos)
 	# print(f"{new_flex_positions}")
 	# print(new_positions, new_num_starters, new_flex_positions)
-
+	if "FLEX" in new_positions:
+		if not new_flex_positions: new_flex_positions = ["RB", "WR"]
 	update_league_settings(new_positions, new_num_starters, new_flex_positions)
 	update_sorted_teams_and_players(get_sorted_teams_and_players(PLAYERS))
 	return ""  # Return an empty string to avoid updating the page content

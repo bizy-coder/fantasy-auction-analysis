@@ -159,6 +159,12 @@ def team_analysis_page():
 	)
 
 def auction_analysis_page():
+	if not sorted_teams_and_players:
+		return Div(
+			H2("No team data available"),
+			P("Please input draft results and player info first."),
+			id="current-menu-content"
+		)
 	fit_options = ['linear', 'polynomial', 'logarithmic', 'exponential']
 	color_options = ['team', 'position']
 	filter_options = ['all', 'starters', 'starter_quality']
@@ -303,7 +309,7 @@ def create_player_card(player):
 	return Div(
 		scrollable_table_style(),
 		Div(player[0], cls="player-name"),
-		Div(f"Team: {PLAYERS[player[0]]['football_team'] if player[0] != 'waiver' else "WAIVER"}", cls="player-team"),
+		Div(f"Team: {PLAYERS[player[0]]['football_team'] if player[0] != 'waiver' else 'WAIVER'}", cls="player-team"),
 		Div(f"Proj: {player[1]:.2f}", cls="player-proj"),
 		Div(f"Price: ${PLAYERS[player[0]]['price']:.2f}", cls="player-price")  if player[0] != 'waiver' else Div("Price: WAIVER", cls="player-price"),
 		cls="player-card"
