@@ -79,6 +79,7 @@ def prepare_data(players, sorted_teams_and_players, points_type='absolute'):
             players_list = team_data.get(position, [])
             for i, (player, player_data) in enumerate(players_list):
                 is_starter = i < NUM_STARTERS[position]
+                if player == 'waiver': continue
                 df.append({
                     'Name': player,
                     'Price': players[player]['price'],
@@ -147,6 +148,7 @@ from collections import defaultdict
 from copy import deepcopy
 
 def recommend_trades(teams, players, included_player=None, included_teams=None, num_recommendations=10, num_players=1):
+    teams = deepcopy(teams)
     recommendations = []
     num_players = min(num_players, 2)
 
