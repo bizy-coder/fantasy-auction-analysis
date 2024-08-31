@@ -13,7 +13,8 @@ sidebar_items = ('League Info', 'Draft Results', 'Player Info', 'Team Analysis',
 @app.get('/')
 def home():
 	# auction_input, player_info_input = load_default_data()
-	
+	PLAYERS.clear()
+	sorted_teams_and_players.clear()
 	# process_draft_results(auction_input)
 	# process_player_info(player_info_input)
 	# print(sorted_teams_and_players)
