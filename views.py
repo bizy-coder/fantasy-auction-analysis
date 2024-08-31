@@ -17,7 +17,7 @@ def home():
 	# process_draft_results(auction_input)
 	# process_player_info(player_info_input)
 	# print(sorted_teams_and_players)
-	return Div(
+	return Title("Fantasy Football Analysis"), Div(
 		Div(
 			Sidebar(sidebar_items, hx_get='/menucontent', hx_target='#current-menu-content'),
 			cls='col-auto px-0'
