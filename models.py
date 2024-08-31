@@ -157,6 +157,8 @@ def recommend_trades(teams, players, included_player=None, included_teams=None, 
         available_players = [p for p in all_players if p not in rostered_players]
         baselines = defaultdict(float)
         for player in available_players:
+            if player not in players:
+                continue
             pos = players[player]['position']
             fpts = player_search(player) - 20
             baselines[pos] = max(baselines[pos], fpts)
